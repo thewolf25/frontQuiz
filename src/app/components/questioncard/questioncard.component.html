@@ -1,0 +1,71 @@
+<nav class="navbar navbar-expand-lg navbar-light text-light bg-darkblue">
+    <div class="container-fluid">
+        <div class="container">
+            <span class="navbar-brand text-light text-logo">
+                <span class="font-avocado">QUIZ</span>
+            </span>
+        </div>
+        <div class="btn text-light font-avocado pt-2">
+            <span class="timer" id="timer">{{time}}</span><br>
+            <span>temp</span>
+        </div>
+
+    </div>
+</nav>
+
+<div class="question-container">
+    <!-- 
+    <div class="scroll-balloon">
+        <span>teste</span>
+    </div> -->
+
+    <div class="container" style="z-index: 999;">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="img-animate">
+                    <!-- <div id="clock" style="display: none;" class="img-gif-animate"></div> -->
+                </div>
+            </div>
+            <div class="col-lg-8">
+
+                <div class="d-flex justify-content-end p-3">
+                    <span class="badge p-2" [ngClass]="{
+                        'bg-success': question[currentQuiz].difficulte === 'facil',
+                        'bg-warning': question[currentQuiz].difficulte === 'media',
+                        'bg-danger': question[currentQuiz].difficulte  === 'dificil'}">
+                        <span class="p-2 m-2 font-avocado h6"> {{currentQuiz+1}} / {{question.length}}</span>
+                    </span>
+                </div>
+
+                <mat-card class="card">
+                    <mat-card-header class="card-header text-light p-4" [ngClass]="{
+                        'bg-success': question[currentQuiz].difficulte === 'facil',
+                        'bg-warning': question[currentQuiz].difficulte === 'media',
+                        'bg-danger': question[currentQuiz].difficulte  === 'dificil'}">
+                        <mat-card-title>{{question[currentQuiz].description}}</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <mat-radio-group [formControl]="control" aria-labelledby="radio-group-label" class="list-group list-group-flush" [(ngModel)]="answer">
+                            <mat-radio-button *ngFor="let option of question[currentQuiz].listchoix" class="list-group-item" [ngClass]="{
+                                'bg-hover-success': question[currentQuiz].difficulte === 'facil',
+                                'bg-hover-warning': question[currentQuiz].difficulte === 'media',
+                                'bg-hover-danger': question[currentQuiz].difficulte  === 'dificil'
+                           }" value="{{option.id}}">
+                                {{option.description}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </mat-card-content>
+                </mat-card>
+
+                <div class="d-flex justify-content-end p-3">
+                    <button type="button" class="btn btn-lg btn-disabled font-avocado" (click)="onAnswer()">
+                        suivant
+                    </button>
+                </div>
+
+            </div>
+            <div class="col-lg-2">
+            </div>
+        </div>
+    </div>
+</div>
