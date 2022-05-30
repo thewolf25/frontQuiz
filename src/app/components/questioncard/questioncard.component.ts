@@ -1,6 +1,6 @@
 import { reponseModule } from '../../models/reponse.module';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, NgForm } from '@angular/forms';
 import { QuizService } from 'src/app/quiz.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
@@ -26,6 +26,7 @@ export class QuestioncardComponent implements OnInit {
   public count = 1;
   public interval: any;
   public answer: any;
+  public options!:Array<any>;
   constructor(
     private quizService: QuizService,
     private auth: AuthService,
@@ -33,7 +34,7 @@ export class QuestioncardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.autenticacao();
+    // this.authenticate();
     this.listquestions();
     this.timeQuestion();
   }
@@ -42,16 +43,33 @@ export class QuestioncardComponent implements OnInit {
     this.quizService.listquestion().subscribe(question => {
       this.question = question
     }, err => {
-      console.error('Não foi possível exibir a question.', err);
+      console.error('error', err);
     });
   }
 
-  public onAnswer(): void {
-    
+
+
+  public onAnswer(f:NgForm): void {
+    console.log("************* form value ***********")
+    console.log(this.question[this.currentQuiz].options)
+    console.log("************************************")
+    this.options = this.question[this.currentQuiz].options
+    const responses = f.value
+    let responseTosend = Object.keys(responses).filter((index)=> responses[index] === true)
+    responseTosend = this.options.filter((opt)=> responseTosend.includes(`${opt.id}`) )
+    console.log(responseTosend)
+  console.log(responseTosend);
+ 
+   
+    if (this.answer == undefined || this.answer == 0) {
+      this.reponse.option_id = null;
+    }
+    //register reponse
+    responseTosend.forEach((item)=>{
+         
+
     this.reponse = {
-      option_id: {
-        id: parseInt(this.answer)
-      },
+      option_id: item,
       question_id: {
         id: this.question[this.currentQuiz].id
       },
@@ -60,28 +78,22 @@ export class QuestioncardComponent implements OnInit {
       },
       temp_reponse: this.time
     }
-    console.log('antes' + this.answer);
-
-    console.log('antes1' + this.reponse.option_id);
-   
-    //se a escolha dor indefinido(caso o usuário nao seleciona nenhuma) a opção é salva como null
-    if (this.answer == undefined || this.answer == 0) {
-      console.log('entrou' + this.answer);
-      this.reponse.option_id = null;
-    }
-    //registrando a reponse
-    this.quizService.cadastrareponse(this.reponse).subscribe(res => {
+    this.quizService.saveReponse(this.reponse).subscribe(res => {
       this.reponse = new reponseModule();
+ 
+    } , 
+    err =>{
+      console.log(err)
+    }
+    );
+    })
 
-    });
     
     this.answer = 0
-
     this.currentQuiz++;
-    //se a qtde de questoes for maior do que a qtde de questions irá redirecionar para a tela de reconnaissance
     if (this.currentQuiz >= this.question.length) {
       clearInterval(this.interval);
-      this.router.navigate(['/reconnaissance']);
+      this.router.navigate(['/result']);
     }
 
     this.time = 30;
@@ -89,15 +101,12 @@ export class QuestioncardComponent implements OnInit {
 
   public timeQuestion(): void {
     this.interval = setInterval(() => {
-      //Irá exibir o emoji quando o timer estiver em 10seg
       if (this.time <= 11) {
         document.querySelector('#timer')?.classList.add('text-danger')
         document.querySelector('#timer')?.classList.add('ef-pulse-grow')
-        document.querySelector('#clock')?.classList.add('display-block')
       } else {
         document.querySelector('#timer')?.classList.remove('text-danger')
         document.querySelector('#timer')?.classList.remove('ef-pulse-grow')
-        document.querySelector('#clock')?.classList.remove('display-block')
       }
 
       if (this.time > 1) {
@@ -105,27 +114,25 @@ export class QuestioncardComponent implements OnInit {
       } else {
         if (this.time == 1) {
           this.answer = 0;
-          this.onAnswer();
+          // this.onAnswer();
         } else {
           this.currentQuiz++;
         }
-
-        document.querySelector('#timer')?.classList.remove('text-danger')
-        document.querySelector('#timer')?.classList.remove('ef-pulse-grow')
-        document.querySelector('#clock')?.classList.remove('display-block')
-
         this.time = 30;
 
         if (this.currentQuiz == this.question.length) {
-          this.router.navigate(['/reconnaissance']);
+          this.router.navigate(['/result']);
         }
       }
     }, 1000)
   }
 
-  public autenticacao(): void {
+  public authenticate(): void {
     if(localStorage.getItem("id") === null || localStorage.getItem("nom") === null) {
       this.router.navigate(['/login']);
     }
   }
+
+
+
 }

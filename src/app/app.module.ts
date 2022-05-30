@@ -11,7 +11,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { QuestioncardComponent } from './components/questioncard/questioncard.component';
 import { reglesComponent } from './views/regles/regles.component';
 import { LoginComponent } from './views/login/login.component';
-import { reconnaissanceComponent } from './views/reconnaissance/reconnaissance.component';
+import { resultComponent } from './views/result/result.component';
 import { RankingComponent } from './views/ranking/ranking.component';
 import { presentationComponent } from './views/presentation/presentation.component';
 
@@ -27,6 +27,7 @@ import { NavbarQuestionComponent } from './components/navbar-question/navbar-que
 import { LoginAdminComponent } from './views/admin/account/login-admin/login-admin.component';
 
 import { CanActivateRouteGuard } from './can-activate-route.guard';
+import { MatPseudoCheckboxModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { CanActivateRouteGuard } from './can-activate-route.guard';
     QuestioncardComponent,
     reglesComponent,
     LoginComponent,
-    reconnaissanceComponent,
+    resultComponent,
     RankingComponent,
     presentationComponent,
     AdminComponent,
@@ -54,7 +55,8 @@ import { CanActivateRouteGuard } from './can-activate-route.guard';
     MatRadioModule,
     FormsModule,
     ReactiveFormsModule,
-    MatCardModule
+    MatCardModule,
+    
   ],
   providers: [HttpClientModule,QuizService,CanActivateRouteGuard],
   bootstrap: [AppComponent]

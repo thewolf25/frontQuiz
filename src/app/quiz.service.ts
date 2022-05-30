@@ -32,11 +32,14 @@ export class QuizService {
     return this.http.get(`${this.baseUrl.api}/ranking`);
   }
 
-  cadastrauser(user: userModel): Observable<any> {
-    return this.http.post(`${this.baseUrl.api}/user/`, user);
+  inscriptionuser(user: userModel): Observable<any> {
+    return this.http.post(`${this.baseUrl.api}/create/user/`, user);
   }
 
-  cadastrareponse(reponse: reponseModule): Observable<any> {
-    return this.http.post(`${this.baseUrl.api}/reponse`, reponse);
+  saveReponse(reponse: reponseModule): Observable<any> {
+
+    console.log("************* reponse  *******************");
+    console.log(reponse.user_id)
+    return this.http.post(`${this.baseUrl.api}/create/response`, reponse);
   }
 }

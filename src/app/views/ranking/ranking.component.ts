@@ -27,7 +27,7 @@ export class RankingComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.autenticacao();
+    this.authenticate();
     this.getlistRanking();
   }
 
@@ -88,7 +88,7 @@ export class RankingComponent implements OnInit {
     return (value.posicao > 5);
   }
 
-  public autenticacao(): void {
+  public authenticate(): void {
     if(localStorage.getItem("user") === null) {
       this.auth.clearStorage();
       this.router.navigate(['/admin/login']);

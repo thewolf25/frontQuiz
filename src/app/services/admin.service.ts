@@ -27,23 +27,23 @@ export class AdminService {
   }
    /**
    * @PostMapping("/question")
-	 * @ApiOperation(value="Cadastra uma question")
+	 * @ApiOperation(value="inscription uma question")
    */
-  cadastraquestion(question: questionModule) : Observable<any> {
+  inscriptionquestion(question: questionModule) : Observable<any> {
     return this.http.post(`${this.api.api}/question/`, question);
   }
    /**
    * @PostMapping("/option")
-	 * @ApiOperation(value="Cadastra choix")
+	 * @ApiOperation(value="inscription choix")
    */
-  cadastraoption(option: optionModule): Observable<any> {
+  inscriptionoption(option: optionModule): Observable<any> {
     return this.http.post(`${this.api.api}/option/`, option);
   }
   /**
    * @PostMapping("/user")
-	 * @ApiOperation(value="Cadastra um user")
+	 * @ApiOperation(value="inscription um user")
    */
-  cadastrauser(user: userModel): Observable<any> {
+  inscriptionuser(user: userModel): Observable<any> {
     return this.http.post(`${this.api.api}/user/`, user);
   }
 

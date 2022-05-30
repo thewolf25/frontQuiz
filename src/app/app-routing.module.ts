@@ -2,7 +2,7 @@ import { LoginAdminComponent } from './views/admin/account/login-admin/login-adm
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { QuestioncardComponent } from './components/questioncard/questioncard.component';
-import { reconnaissanceComponent } from './views/reconnaissance/reconnaissance.component';
+import { resultComponent } from './views/result/result.component';
 import { presentationComponent } from './views/presentation/presentation.component';
 import { LoginComponent } from './views/login/login.component';
 import { RankingComponent } from './views/ranking/ranking.component';
@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'regles', component: reglesComponent },
   
   { path:'quiz', component: QuestioncardComponent },
-  { path:'reconnaissance', component: reconnaissanceComponent },
+  { path:'result', component: resultComponent },
   
   { path: 'admin/result', component: AdminComponent},
   { path: 'admin/login', component: LoginAdminComponent},

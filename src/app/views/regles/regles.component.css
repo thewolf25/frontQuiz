@@ -12,3 +12,16 @@
     font-size: 35px;
     padding: 0 0.75em;
 }
+
+
+
+.background-color-theme{
+    background: #198487;
+    border: 1px solid #198487;
+    color: white
+}
+
+.custom_size_img{
+    width: 50%; 
+    margin: auto;
+}

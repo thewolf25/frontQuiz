@@ -20,7 +20,7 @@ export class TimerService {
         time = 30;
         currentQuiz++;
         if (currentQuiz == question.length) {
-          window.location.replace("/reconnaissance");
+          window.location.replace("/result");
         }
       }
     }, 1000)

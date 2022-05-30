@@ -8,12 +8,19 @@ import { Router } from '@angular/router';
 })
 export class reglesComponent implements OnInit {
   
+
+  courseSize = 32
+  currentPage = 1
   constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  public comecar() {
+  nextPage(){
+    this.currentPage++ ;
+  }
+
+  public startQuiz() {
     this.router.navigate(['/presentation']);
   }
 }

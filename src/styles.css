@@ -104,3 +104,8 @@ mat-radio-button {
 .w-100 {
     width: 100%!important;
 }
+
+
+.mat-card-title{
+    color: black!important
+}

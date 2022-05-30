@@ -26,6 +26,7 @@ export class AuthService {
     if (this.auth) {
       return JSON.parse(this.auth.getItem(key) || '{}');
     }
+
     return null;
   }
 

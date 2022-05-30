@@ -10,8 +10,7 @@ form {
     transform: translateY(50%); 
 }
 
-
 .background-color-theme{
-    background: #198487
-
+    background: #198487;
+    border: 1px solid #198487
 }

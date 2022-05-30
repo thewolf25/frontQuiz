@@ -13,6 +13,7 @@ import { ApiService } from 'src/app/services/api.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent {
   @ViewChild(MatRadioButton) groupC: any = {};
 
@@ -36,12 +37,11 @@ export class LoginComponent {
   }
 
   public login(): void {
-    this.router.navigate(['/regles']);
 
-
+    
     if(this.formulario.valid) {
 
-      this.api.cadastrauser(this.user).subscribe(user =>{
+      this.api.inscriptionuser(this.user).subscribe(user =>{
         this.user = new userModel();
         
         this.auth.setStorage('id', user.id);
@@ -52,23 +52,13 @@ export class LoginComponent {
           nom: user.nom,
           email: user.email
         }
-
-        this.http.sendEmail("http://localhost:3000/sendmail", userdata).subscribe(
-          data => {
-            let res:any = data; 
-            console.log(
-              `👏 > 👏 > 👏 > 👏 ${user.nom} a été enregistré avec succès et l'e-mail a été envoyé et l'identifiant du message est ${res.messageId}`
-            );
-          },
-          err => {
-            return Promise.reject(`Il n'a pas été possible d'envoyer l'e-mail ! ${err}`).catch(err => {
-              throw new Error(err);
-            });
-          }
-        );
-      
+        
+        this.router.navigate(['/regles']);
 
         }, err => {
+
+
+          console.log(err)
           document.querySelector('#email-invalido')!.innerHTML = `
           <span class="text-danger">Email existe déja.</span>
           `;
